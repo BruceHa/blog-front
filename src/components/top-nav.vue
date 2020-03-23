@@ -24,12 +24,33 @@
         </div>
       </div>
     </div>
-    <div class="modal login" v-if="login">
+    <div class="modal" v-if="model">
       <div class="mark"></div>
-      <div class="content">
+      <form class="content login" v-show="login">
         <div class="title-wrap">
-          <div class="title">登录</div>
-          <div @click="closeModal">x</div>
+          <div class="title" @click="submitLogin">登录</div>
+          <div @click="closeModal">
+            <i class="iconfont icon-close"></i>
+          </div>
+        </div>
+        <div class="input">
+          <input autocomplete type="text" placeholder="请输入您的邮箱">
+        </div>
+        <div class="input">
+          <input autocomplete type="password" placeholder="请输入您的密码">
+        </div>
+        <div class="submit">登录</div>
+        <div class="model-flex">
+          <div class="register">没有账号?<span @click="showRegister" class="go-register">注册</span></div>
+          <div class="forget-password">忘记密码</div>
+        </div>
+      </form>
+      <form autocomplete="nope" class="content register" v-show="!login">
+        <div class="title-wrap">
+          <div class="title">注册</div>
+          <div @click="closeModal">
+            <i class="iconfont icon-close"></i>
+          </div>
         </div>
         <div class="input">
           <input type="text" placeholder="请输入您的邮箱">
@@ -37,21 +58,33 @@
         <div class="input">
           <input type="password" placeholder="请输入您的密码">
         </div>
-        <div class="submit">登录</div>
-      </div>
+        <div class="submit">注册</div>
+        <div class="go-login" @click="openLoginModal">已有账号登录</div>
+      </form>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { login, register } from '@/common/types'
+import { sendRequest } from '@/common/service'
 
 @Component
 export default class TopNav extends Vue {
   path = ''
   active = false
+  model = false
   login = false
-  register = false
+  loginForm: login = {
+    userName: '',
+    password: ''
+  }
+
+  registerForm: register = {
+    email: '',
+    password: ''
+  }
 
   created () {
     this.path = this.$route.path
@@ -74,16 +107,43 @@ export default class TopNav extends Vue {
   }
 
   openLoginModal () {
+    this.model = true
     this.login = true
   }
 
   openRegisterModal () {
-    this.register = true
+    this.model = true
+    this.login = false
+  }
+
+  showRegister () {
+    this.login = false
   }
 
   closeModal () {
+    this.model = false
     this.login = false
-    this.register = false
+  }
+
+  submitLogin () {
+    if (!this.loginForm.userName) {
+      return
+    }
+
+    if (!this.loginForm.password) {
+      return
+    }
+
+    sendRequest({
+      url: '',
+      method: 'post',
+      data: {
+        username: this.loginForm.userName,
+        password: this.loginForm.password
+      }
+    }).then((data) => {
+      console.log(data)
+    })
   }
 }
 </script>
@@ -204,6 +264,10 @@ export default class TopNav extends Vue {
       transform: translate(-50%, -50%);
       background-color: #fff;
 
+      .iconfont {
+        font-size: 18px;
+      }
+
       .title-wrap {
         display: flex;
         justify-content: space-between;
@@ -238,6 +302,7 @@ export default class TopNav extends Vue {
       .submit {
         width: 100%;
         padding: 10px 0;
+        margin-bottom: 20px;
         color: #fff;
         border-radius: 3px;
         background-color: #007fff;
@@ -248,6 +313,31 @@ export default class TopNav extends Vue {
         &:active {
           opacity: .7;
         }
+      }
+
+      .model-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .register {
+
+          .go-register {
+            margin-left: 10px;
+            color: #007fff;
+            cursor: pointer;
+          }
+        }
+
+        .forget-password {
+          color: #007fff;
+        }
+      }
+
+      .go-login {
+        color: #007fff;
+        text-align: center;
+        cursor: pointer;
       }
     }
   }

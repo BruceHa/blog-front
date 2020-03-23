@@ -8,3 +8,14 @@ export interface AxiosRequestConfig {
   data?: any,
   [propName: string]: any
 }
+
+
+export interface login {
+  userName: string
+  password: string
+}
+
+export interface register {
+  email: string
+  password: string
+}

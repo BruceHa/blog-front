@@ -21,6 +21,7 @@ module.exports = {
     // 修改文件进入自定义路径
     config.resolve.alias
       .set('scss', resolve('src/scss'))
+      .set('common', resolve('src/common'))
       .set('assets', resolve('src/assets'))
 
     if (process.env.NODE_ENV === 'production') {
