@@ -2,7 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 const Home = () => import('@/views/home.vue')
+const Index = () => import('@/views/index.vue')
 const Aritcle = () => import('@/views/article.vue')
+const Project = () => import('@/views/project.vue')
+const Note = () => import('@/views/note.vue')
+const Course = () => import('@/views/course.vue')
+const LeaveMsg = () => import('@/views/leave-msg.vue')
+const Summary = () => import('@/views/summary.vue')
 
 Vue.use(VueRouter)
 
@@ -13,9 +19,40 @@ const routes = [
     component: Home
   },
   {
-    path: '/article',
-    name: 'article',
-    component: Aritcle
+    path: '/',
+    component: Index,
+    children: [
+      {
+        path: '/article',
+        name: 'article',
+        component: Aritcle
+      },
+      {
+        path: '/project',
+        name: 'project',
+        component: Project
+      },
+      {
+        path: '/note',
+        name: 'note',
+        component: Note
+      },
+      {
+        path: '/course',
+        name: 'course',
+        component: Course
+      },
+      {
+        path: '/leave-msg',
+        name: 'leave-msg',
+        component: LeaveMsg
+      },
+      {
+        path: '/summary',
+        name: 'summary',
+        component: Summary
+      }
+    ]
   }
 ]
 
