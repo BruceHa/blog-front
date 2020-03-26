@@ -15,7 +15,9 @@
             @focus="handleFocus"
             @blur="handleBlur"
             type="text"
+            v-model="keyword"
             placeholder="搜索博客"
+            @keyup.enter="search"
           >
         </div>
         <div class="btn-wrap">
@@ -34,18 +36,18 @@
           </div>
         </div>
         <div class="input">
-          <input autocomplete type="text" placeholder="请输入您的邮箱">
+          <input type="text" placeholder="请输入您的邮箱">
         </div>
         <div class="input">
-          <input autocomplete type="password" placeholder="请输入您的密码">
+          <input autocomplete="new-password" type="password" placeholder="请输入您的密码">
         </div>
         <div class="submit">登录</div>
         <div class="model-flex">
           <div class="register">没有账号?<span @click="showRegister" class="go-register">注册</span></div>
-          <div class="forget-password">忘记密码</div>
+          <router-link tag="div" to="/forget-password" class="forget-password">忘记密码</router-link>
         </div>
       </form>
-      <form autocomplete="nope" class="content register" v-show="!login">
+      <form class="content register" v-show="!login">
         <div class="title-wrap">
           <div class="title">注册</div>
           <div @click="closeModal">
@@ -56,7 +58,7 @@
           <input type="text" placeholder="请输入您的邮箱">
         </div>
         <div class="input">
-          <input type="password" placeholder="请输入您的密码">
+          <input autocomplete="new-password" type="password" placeholder="请输入您的密码">
         </div>
         <div class="submit">注册</div>
         <div class="go-login" @click="openLoginModal">已有账号登录</div>
@@ -86,6 +88,8 @@ export default class TopNav extends Vue {
     password: ''
   }
 
+  keyword = ''
+
   created () {
     this.path = this.$route.path
   }
@@ -104,6 +108,22 @@ export default class TopNav extends Vue {
 
   handleBlur () {
     this.active = false
+  }
+
+  search () {
+    if (!this.keyword) {
+      return
+    }
+
+    sendRequest({
+      url: '',
+      method: 'get',
+      params: {
+        keyword: this.keyword
+      }
+    }).then((data) => {
+      console.log(data)
+    })
   }
 
   openLoginModal () {
@@ -140,6 +160,27 @@ export default class TopNav extends Vue {
       data: {
         username: this.loginForm.userName,
         password: this.loginForm.password
+      }
+    }).then((data) => {
+      console.log(data)
+    })
+  }
+
+  submitRegister () {
+    if (!this.registerForm.email) {
+      return
+    }
+
+    if (!this.registerForm.password) {
+      return
+    }
+
+    sendRequest({
+      url: '',
+      method: 'post',
+      data: {
+        email: this.registerForm.email,
+        password: this.registerForm.password
       }
     }).then((data) => {
       console.log(data)

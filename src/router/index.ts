@@ -9,6 +9,7 @@ const Note = () => import('@/views/note.vue')
 const Course = () => import('@/views/course.vue')
 const LeaveMsg = () => import('@/views/leave-msg.vue')
 const Summary = () => import('@/views/summary.vue')
+const ForgetPassword = () => import('@/views/forget-password.vue')
 
 Vue.use(VueRouter)
 
@@ -53,6 +54,10 @@ const routes = [
         component: Summary
       }
     ]
+  },
+  {
+    path: '/forget-password',
+    component: ForgetPassword
   }
 ]
 
