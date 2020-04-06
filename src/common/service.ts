@@ -16,17 +16,16 @@ export function sendRequest (config: AxiosRequestConfig) {
       params,
       data
     }).then((res: any) => {
-        if (res.data.code === 200) {
-          resolve(res.data.data)
-        } else {
-          console.log(`${url} 接口报错: ${res.data.msg}`)
-          reject(res.data)
-        }
-      })
-      .catch((err: any) => {
-        console.log(`${url} 接口报错: ${err.message}`)
-        err.msg = err.message
-        reject(err)
-      })
+      if (res.data.code === 200) {
+        resolve(res.data.data)
+      } else {
+        console.log(`${url} 接口报错: ${res.data.msg}`)
+        reject(res.data)
+      }
+    }).catch((err: any) => {
+      console.log(`${url} 接口报错: ${err.message}`)
+      err.msg = err.message
+      reject(err)
+    })
   })
 }
