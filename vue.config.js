@@ -13,8 +13,13 @@ module.exports = {
   productionSourceMap: false,
   // css相关配置
   css: {
-    // 启用 CSS modules for all css / pre-processor files.
-    requireModuleExtension: true
+    loaderOptions: {
+      sass: {
+        prependData: `@import "~@/scss/variable.scss";
+        @import "~@/scss/mixins.scss";
+        `
+      }
+    }
   },
   // webpack 配置进行更细粒度的修改
   chainWebpack: config => {

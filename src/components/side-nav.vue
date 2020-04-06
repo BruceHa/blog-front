@@ -3,6 +3,7 @@
     <div class="avatar">
       <img src="~assets/avatar.jpg" alt="">
     </div>
+    <h3 class="title">标签云</h3>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ export default class SideNav extends Vue {
 </script>
 
 <style lang="scss" scoped>
+// @import '~scss/variable.scss';
 .wrap {
   width: 250px;
   min-height: 500px;
@@ -32,6 +34,12 @@ export default class SideNav extends Vue {
       width: 100%;
       height: 100%;
     }
+  }
+
+  .title {
+    color: $grey-color;
+    text-align: center;
+    font-size: 15px;
   }
 }
 </style>

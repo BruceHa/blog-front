@@ -388,8 +388,8 @@ export default class ArticleList extends Vue {
         position: absolute;
         top: 50%;
         right: 15px;
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
         transform: translate(0, -50%);
 
         img {
