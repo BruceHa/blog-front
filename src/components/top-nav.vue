@@ -307,6 +307,7 @@ export default class TopNav extends Vue {
 
       .iconfont {
         font-size: 18px;
+        cursor: pointer;
       }
 
       .title-wrap {
