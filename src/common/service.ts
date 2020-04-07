@@ -7,7 +7,7 @@ import { AxiosRequestConfig } from './types'
  * @param {Object} params get请求需要的参数列表
  * @param {Object} data post请求需要的参数列表
  */
-export function sendRequest (config: AxiosRequestConfig) {
+export function sendRequest (config: AxiosRequestConfig): Promise<any> {
   const { url, method = 'get', params, data } = config
   return new Promise((resolve, reject) => {
     ajax({
